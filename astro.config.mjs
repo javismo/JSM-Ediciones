@@ -11,5 +11,7 @@ export default defineConfig({
 
   integrations: [tailwind()],
 
-  adapter: vercelServerless()
+  adapter: vercelServerless({
+    webAnalytics: { enabled: true }
+  })
 });
