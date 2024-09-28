@@ -14,8 +14,7 @@ export default defineConfig({
     schema: {
       
     }
-  },
+  }
 
   adapter: vercel()
-
 });
