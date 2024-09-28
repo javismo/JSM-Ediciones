@@ -1,0 +1,101 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	
+<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+		<ClientRouter />
+	</head>
+
+	<body>
+
+		<section class="w-full flex justify-between">
+			<div class="w-full h-24 flex pr-10 justify-center items-center">
+        <hr class="w-full">
+      </div>
+			<img class="h-24 aspect-square mb-10"
+				title="JSM EDICIONES - Reading books"
+				src="/jsm-ediciones-logo.svg">
+        <div class="w-full h-24 flex pl-10 justify-center items-center">
+        <hr class="w-full">
+      </div>
+			<h1 class="text-center text-7xl font-extrabold mb-24 hidden">JSM Ediciones - Reading books</h1>
+		</section>
+
+		<div>
+			<slot />
+		</div>
+
+    <Footer />
+    
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+
+	html {
+		font-family: system-ui, sans-serif;
+		color: #666;
+		position: relative;
+		user-select: none;
+	}
+
+	html::before {
+		content: "";
+		position: fixed;
+		width: 1000%;
+		height: 1000%;
+		background-image: radial-gradient(
+			rgba(0, 0, 0, 0.1) 1px,
+			transparent 0
+		);
+		background-size: 30px 30px;
+		background-position: 0px 0px;
+		transform: rotate(30deg);
+		top: -500%;
+		left: -500%;
+		z-index: -1;
+		animation: pointposition 5s infinite linear;
+	}
+
+	@keyframes pointposition {
+		from {
+			background-position: 0 0;
+		}
+		from {
+			background-position: -30px -30px;
+		}
+	}
+
+	body {
+		@apply grid place-content-center p-20;
+	}
+
+	body > div {
+		@apply container;
+	}
+</style>

@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro"; 
+import BookImage from "../../components/BookImage.astro";
+import BuyButton from "../../components/BuyButton.astro";
+import AmazonLogo from "../../components/AmazonLogo.astro";
+
+export async function getStaticPaths() {
+  const books = await getCollection("books");
+
+  return books.map((book) => ({
+    params: { id: book.slug },
+    props: { book }
+  }))
+}
+
+const { book } = Astro.props
+const { data, slug } = book
+const { title, img, imgDescription, category, premium, buy, buyPremium, language, pages } = data
+
+const { Content } = await render(book)
+
+export const prerender = true
+---
+
+<Layout title={`${title} - ${category}`}>
+  
+  <div class="w-full max-w-screen-lg lg:flex gap-6 sm:block">
+    
+    <aside class="lg:w-64 sm:w-full flex flex-col items-center gap-4 sm:pb-10">
+      
+      <!-- <a href='/' class="hover:underline opacity-70">← Volver atrás</a> -->
+
+      <BookImage slug={slug} img={img} title={title} />
+
+      <span class="text-sm mb-[-15px]"><span class="font-bold">Idioma:</span> {language === 'es' ? 'Español' : 'Inglés'} </span>
+      <span class="text-sm"><span class="font-bold">Páginas:</span> {pages} </span>
+
+      <BuyButton server:defer buy={buy} premium={premium} buyPremium={buyPremium} />
+
+    </aside>
+
+    <main class="lg:w-[calc(100%-16rem)] sm:w-full">
+      <h1 transition:name={`title-${slug}`} class="text-2xl font-bold mb-4">{title}</h1>
+      
+      <hr class="my-2 w-full">
+
+      <div class="prose max-w-screen-lg w-full">
+        <Content />
+      </div>
+
+      <img src=`/${imgDescription}` class="mt-10" alt={title} title={title} />
+      
+    </main>
+
+  </div>
+</Layout>

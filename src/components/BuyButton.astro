@@ -1,0 +1,74 @@
+---
+import AmazonLogo from "./AmazonLogo.astro"
+
+let country = 'es'
+let countryName = 'España'
+
+if (Astro.request.headers.get('X-Vercel-IP-Country') === 'es') {
+  country = 'es'
+  countryName = 'España'
+} else if (Astro.request.headers.get('X-Vercel-IP-Country') === 'us') {
+  country = 'us'
+  countryName = 'USA'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'uk') {
+  country = 'uk'
+  countryName = 'United Kingdom'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'de') {
+  country = 'de'
+  countryName = 'Germany'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'fr') {
+  country = 'fr'
+  countryName = 'France'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'it') {
+  country = 'it'
+  countryName = 'Italy'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'nl') {
+  country = 'nl'
+  countryName = 'Netherlands'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'pl') {
+  country = 'pl'
+  countryName = 'Poland'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'se') {
+  country = 'se'
+  countryName = 'Sweden'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'jp') {
+  country = 'jp'
+  countryName = 'Japan'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'ca') {
+  country = 'ca'
+  countryName = 'Canada'
+} else  if (Astro.request.headers.get('X-Vercel-IP-Country') === 'au') {
+  country = 'au'
+  countryName = 'Australia'
+} else {
+  country = 'es'
+  countryName = 'España'
+}
+
+const { buy, buyPremium, premium } = Astro.props
+const url = buy[country]
+const urlPremium = buyPremium[country]
+
+---
+
+<a href={url}
+  title="Comprar libro"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="w-full h-10 text-balance inline-flex gap-2 items-center bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-black font-bold py-8 px-4 rounded-lg border border-yellow-500 transition duration-200 ease-in-out hover:scale-105 justify-center text-center"
+>
+  { premium ? `Comprar tapa blanda en Amazon ${countryName}` : `Comprar en Amazon ${countryName}` }
+  <AmazonLogo />
+</a>
+
+{premium &&
+  <a href={urlPremium}
+    title="Comprar libro Edición Especial"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="w-full h-10 text-balance inline-flex gap-2 items-center bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-black font-bold py-8 px-4 rounded-lg border border-yellow-500 transition duration-200 ease-in-out hover:scale-105 justify-center text-center"
+  >
+    Comprar tapa dura en Amazon {countryName}
+    <AmazonLogo />
+  </a>
+}

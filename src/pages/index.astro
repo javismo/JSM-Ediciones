@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BookImage from '../components/BookImage.astro';
+import Footer from '../components/Footer.astro';
+
+import { getCollection } from 'astro:content';
+
+const books = await getCollection('books')
+books.sort((a: any, b: any) => a.data.id - b.data.id);
+
+export const prerender = true
+---
+
+<Layout title="JSM Ediciones - Reading books">
+	
+  <main>
+
+    <section aria-label="Libros recomendados para programadores">
+      <div class="mx-auto max-w-screen-lg">
+        <div class="lg:grid lg:gap-6 lg:grid-cols-2 sm:block">
+
+          {
+            books.map((book: any) => {
+              const { slug, data } = book
+              const { title, img, pages, description, language } = data
+
+              return (
+                <article>
+                  
+                  <a href={`/book/${slug}`} class="lg:flex lg:justify-between lg:flex-row transition opacity-85 hover:scale-105 hover:opacity-100 relative sm:flex sm:flex-col sm:justify-center sm:mb-10">
+                    
+                    <BookImage slug={slug} img={img} title={title} />
+                                    
+                    <div class="lg:pl-5 flex flex-col justify-center">
+                      <h2 class="text-xl font-bold text-stone-800">
+                        {title}
+                      </h2>
+                      <hr class="my-2 w-full">
+                      <p class="mb-4 text-sm text-stone-600 max-w-sm">{description}</p>
+                      <span class="text-xs"><span class="font-bold">Idioma:</span> {language === 'es' ? 'Español' : 'Inglés'} </span>
+                      <span class="text-xs"><span class="font-bold">Páginas:</span> {pages} </span>
+                    </div>
+
+                  </a>
+
+                </article>
+              )
+            })
+          }
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
