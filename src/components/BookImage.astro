@@ -1,14 +1,14 @@
 ---
 import Image from "astro/components/Image.astro"
 
-const { slug, img, title } = Astro.props
+const { slug, img, title, width, height, border } = Astro.props
 ---
 
 <Image transition:name={`img-${slug}`}
-	   class="lg:w-48 sm:w-full aspect-square rounded object-contain object-center border border-stone-300"
+	   class={'text-center aspect-square rounded object-contain object-center border border-stone-300 ' + (`${border}` ? '' : 'lg:border-none') + ` md:w-[${width}px]`} 
 		 src={`/${img}`}
 		 alt={title}
      loading="lazy"
-     width="190"
-     height="190"
+     width={width}
+     height={height}
 />

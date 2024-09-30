@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BookImage from '../components/BookImage.astro';
-import Footer from '../components/Footer.astro';
 
 import { getCollection } from 'astro:content';
 
@@ -15,9 +14,9 @@ export const prerender = true
 	
   <main>
 
-    <section aria-label="Libros recomendados para programadores">
+    <section aria-label="JSM Ediciones - Reading books">
       <div class="mx-auto max-w-screen-lg">
-        <div class="lg:grid lg:gap-6 lg:grid-cols-2 sm:block">
+        <div class="lg:grid lg:gap-6 lg:grid-cols-2 block">
 
           {
             books.map((book: any) => {
@@ -27,14 +26,37 @@ export const prerender = true
               return (
                 <article>
                   
-                  <a href={`/book/${slug}`} class="lg:flex lg:justify-between lg:flex-row transition opacity-85 hover:scale-105 hover:opacity-100 relative sm:flex sm:flex-col sm:justify-center sm:mb-10">
-                    
-                    <BookImage slug={slug} img={img} title={title} />
+                  <a href={`/book/${slug}`}
+                      class="flex
+                             flex-col
+                             w-full
+                             justify-center
+                             mb-10
+                             p-3
+                             lg:flex-row
+                             lg:justify-between
+                             lg:mb-0
+                             lg:text-left
+                             lg:p-0
+                             transition
+                             opacity-85
+                             relative                            
+                            bg-white
+                             rounded
+                             border
+                             border-stone-300
+                             drop-shadow-md
+                             hover:scale-105
+                             hover:opacity-100
+                             hover:drop-shadow-lg">
+                    <div class="flex justify-center">
+                      <BookImage slug={slug} img={img} title={title} width="190" height="190" border={false} />
+                    </div>
                                     
-                    <div class="lg:pl-5 flex flex-col justify-center">
-                      <h2 class="text-xl font-bold text-stone-800">
+                    <div class="mt-5 lg:mt-0 lg:px-3 flex flex-col justify-center">
+                      <h1 class="text-xl font-bold text-stone-800">
                         {title}
-                      </h2>
+                      </h1>
                       <hr class="my-2 w-full">
                       <p class="mb-4 text-sm text-stone-600 max-w-sm">{description}</p>
                       <span class="text-xs"><span class="font-bold">Idioma:</span> {language === 'es' ? 'Español' : 'Inglés'} </span>

@@ -25,16 +25,30 @@ export const prerender = true
 
 <Layout title={`${title} - ${category}`}>
   
-  <div class="w-full max-w-screen-lg lg:flex gap-6 sm:block">
+  <div class="w-full
+              max-w-screen-lg
+              lg:flex
+              sm:block
+              p-3
+              gap-6
+              bg-white
+              rounded
+              border
+              border-stone-300
+              drop-shadow-md">
     
     <aside class="lg:w-64 sm:w-full flex flex-col items-center gap-4 sm:pb-10">
       
       <!-- <a href='/' class="hover:underline opacity-70">← Volver atrás</a> -->
 
-      <BookImage slug={slug} img={img} title={title} />
+      <BookImage slug={slug} img={img} title={title} width="256" height="256" border={true} />
+
+      <hr class="my-2 w-full">
 
       <span class="text-sm mb-[-15px]"><span class="font-bold">Idioma:</span> {language === 'es' ? 'Español' : 'Inglés'} </span>
       <span class="text-sm"><span class="font-bold">Páginas:</span> {pages} </span>
+
+      <hr class="my-2 w-full">
 
       <BuyButton buy={buy} premium={premium} buyPremium={buyPremium} />
 
@@ -45,11 +59,11 @@ export const prerender = true
       
       <hr class="my-2 w-full">
 
-      <div class="prose max-w-screen-lg w-full">
+      <div class="prose max-w-screen-lg w-full mb-5">
         <Content />
       </div>
 
-      <img src=`/${imgDescription}` class="mt-10" alt={title} title={title} />
+      <img class="rounded border border-stone-300" src=`/${imgDescription}` class="mt-10" alt={title} title={title} />
       
     </main>
 
